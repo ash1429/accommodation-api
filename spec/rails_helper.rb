@@ -33,12 +33,21 @@ ActiveRecord::Migration.maintain_test_schema!
 
 # [...]
 # configure shoulda matchers to use rspec as the test framework and full matcher libraries for rails
+
+# spec/rails_helper.rb
+# [...]
+# [...]
+
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
     with.library :rails
   end
 end
+
+
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+
 
 
 RSpec.configure do |config|
@@ -69,6 +78,8 @@ RSpec.configure do |config|
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
+
+  config.include RequestSpecHelper, type: :request
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 

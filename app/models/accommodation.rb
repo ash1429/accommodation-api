@@ -1,4 +1,4 @@
 class Accommodation < ApplicationRecord
-	# validations
+  # validations
   validates_presence_of :typo
 end
