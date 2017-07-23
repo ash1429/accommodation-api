@@ -1,0 +1,224 @@
+FORMAT: 1A
+
+# accommodation-api
+
+accommodation-api is a simple API allowing consumers to view all the types of accommodation facilities provided by Universty of Rajshahi(RU) . It also allows the users to view all the students hall names and primary contact number for those halls, and also let the consumers to peek a view at the notices regarding all types of accommodations.  
+
+## Types of accommodations [/accommodations]
+
+### List of All Types of Accomodations [GET /accommodations]
+Shows all types of accommodation facility RU provides
++ Response 200 (application/json)
+
+        [
+            {
+                "id" : 1,
+                "typo" : "students_hall",
+                "created_at" : "2017-07-22T12:23:57.230Z",
+                "updated_at" : "2017-07-22T12:23:57.230Z"
+            },
+            {
+                "id" : 2,
+                "typo" : "teachers_quarter",
+                "created_at" : "2017-07-22T12:25:02.086Z",
+                "updated_at" : "2017-07-22T12:25:02.086Z"
+            },
+            {
+                "id" :3,
+                "typo" : "staff_quarter",
+                "created_at" : "2017-07-22T12:29:01.065Z",
+                "updated_at" : "2017-07-22T12:29:01.065Z"
+            },
+            {
+                "id" : 4,
+                "typo" : "foreign_dorm",
+                "created_at" : "2017-07-22T12:29:18.969Z",
+                "updated_at" : "2017-07-22T22:56:41.779Z"
+            }
+        ]
+
+### Enlist A New Type of Accommodation [POST /accommodations]
+In case RU provides new kind of accommodation facility admin can add them
+
+
++ Request (application/json)
+
+        {
+            "typo": "resthouse"
+        }
+
++ Response 201 (application/json)
+
+           {
+                "id":5,
+                "typo" : "resthouse",
+                "created_at" : "2017-07-23T21:28:06.162Z",
+                "updated_at" : "2017-07-23T21:28:06.162Z"
+            }
+### Edit [PUT /accommodations/{id}]
+
+Admin Edit the fields if it necessary
++ Request (application/json)
+    + Headers
+
+            Location: http://localhost:3000/accommodations/5
+    + Body
+
+            {
+                "typo": "house"
+            }
++ Response 204
+
+### Delete [DELETE /accommodations/{id}]
+
+Admin can delete fields if it is necessary
+
++ Request
+    + Headers
+
+            Location: http://localhost:3000/accommodations/5
++ Response 204
+
+## Student Halls Provide by RU [/students_halls]
+### List of All Student Halls with Contact Number [GET /students_halls]
+Shows all Students' hall names with corresponding contact numbers
++ Response 200 (application/json)
+
+        [
+            {
+                "id" : 2,
+                "names" : "Sher-e Bangla Fazlul Haque Hall â€“ à¦¶à§‡à¦°-à¦‡-à¦¬à¦¾à¦‚à¦²à¦¾ à¦«à¦œà¦²à§à¦² à¦¹à¦• à¦¹à¦²",
+                "contact_no" : "0721-711191 (Mostofa Tarequl Ahsan, Provost)",
+                "created_at" : "2017-07-23T10:09:14.616Z",
+                "updated_at" : "2017-07-23T11:27:07.442Z"
+            },
+            {
+                "id" : 3,
+                "names" : "Shah Mukhdum Hall â€“ à¦¶à¦¾à¦¹ à¦®à¦–à¦¦à§à¦® à¦¹à¦²" , 
+                "contact_no" : "0721-711193 (Dr. M. Jahangir Alam, Provost)",
+                "created_at" : "2017-07-23T10:10:27.771Z",
+                "updated_at" : "2017-07-23T11:26:13.116Z"
+            },
+            {
+                "id" : 4,
+                "names" : "Nawab Abdul Latif Hall â€“ à¦¨à¦¬à¦¾à¦¬ à¦†à¦¬à§à¦¦à§à¦² à¦²à¦¤à¦¿à¦« à¦¹à¦²",
+                "contact_no" : "0721-711195 (Dr. Bipul Kumar Biswas, Provost)",
+                "created_at" : "2017-07-23T10:18:07.024Z",
+                "updated_at" : "2017-07-23T10:22:15.963Z"
+            },
+            {
+                "id" : 5,
+                "names" : "Syed Amer Ali Hall â€“ à¦¸à§ˆà§Ÿà¦¦ à¦†à¦®à§€à¦° à¦†à¦²à§€ à¦¹à¦²",
+                "contact_no" : "0721-711194 (Dr. M. AMINUL ISLAM, Provost)",
+                "created_at" : "2017-07-23T10:19:02.407Z",
+                "updated_at" : "2017-07-23T10:19:02.407Z"
+                }
+        ]
+### Enlist A New Students' Hall[POST /students_halls]
+In case RU a new Hall is built admin can add it to the list.
++ Request (application/json)
+
+        {
+            "id" : 6,
+            "names" : "Matihar Hall",
+            "contact_no" : "0721-711192 (Md. Ali Asgar,Provost)
+        }
+
++ Response 201 (application/json)
+
+            {
+                "id" : 6,
+                "names" : "Matihar Hall",
+                "contact_no" : "0721-711192 (Md. Ali Asgar,Provost)",
+                "created_at" : "2017-07-23T22:54:30.277Z",
+                "updated_at" : "2017-07-23T22:54:30.277Z"
+            }
+
+### Edit [PUT /students_halls/{id}]
+
+Admin Edit the fields if it is necessary like in a situtation  where the contact number is changed
++ Request (application/json)
+    + Headers
+
+            Location: http://localhost:3000/students_halls/6
+    + Body
+
+            {
+                "contact_no" : "0721-0000000 (Md. Ali Asgar,Provost)"
+            }
++ Response 204
+
+### Delete [DELETE /students_halls/{id}]
+
+Admin can delete fields if it is necessary. Suppose a situation arise where a hall is no longer in use.
+
++ Request
+    + Headers
+
+            Location: http://localhost:3000/students_halls/6
++ Response 204
+
+## Notice Regarding Accommodations [/notices]
+### All Notices [GET /notices]
+Shows all the available notices regarding Accommodations.
++ Response 200 (application/json)
+
+        [
+            {
+                "id" : 1,
+                "notice_for" : "Sher-e Bangla Fazlul Haque Hall",
+                "details" : "Hall Admision",
+                "important_dates" : "Starts: 8.8.14 Ends: 15.9.15",
+                "attachments_needed" : "photo, id card",
+                "created_at" : "2017-07-23T17:40:22.080Z",
+                "updated_at" : "2017-07-23T17:40:22.080Z"
+                }
+        ]
+
+### Hang A New Notice[POST /notices]
+Admin can post a new notice if necessary.
+
++ Request (application/json)
+
+            {
+                "notice_for" : "foreign dorms",
+                "details" : "Vacant dorms for Ramadan Holidays",
+                "important_dates" : "Last date: 15.6.17",
+                "attachments_needed" : "N/A",
+            }
+
++ Response 201 (application/json)
+
+            {
+                "id" : 2,
+                "notice_for" : "foreign dorms",
+                "details" : "Vacant dorms for Ramadan Holidays",
+                "important_dates" : "Last date: 15.6.17",
+                "attachments_needed" : "N/A",
+                "created_at" : "2017-07-23T23:40:34.237Z",
+                "updated_at" : "2017-07-23T23:40:34.237Z"
+            }
+
+### Edit [PUT /notices/{id}]
+
+Admin Edit a notice if it is necessary
++ Request (application/json)
+    + Headers
+
+            Location: http://localhost:3000/notices/2
+    + Body
+
+            {
+                "important_dates" : "Last date: 20.6.17"
+            }
++ Response 204
+
+### Delete [DELETE /notices/{id}]
+
+Admin can delete a notice if necessary, for example, in a situation where the notice is no longer valid
+
++ Request
+    + Headers
+
+            Location: http://localhost:3000/notices/2
++ Response 204
