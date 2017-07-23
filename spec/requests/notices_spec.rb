@@ -51,28 +51,30 @@ RSpec.describe 'Notices API', type: :request do
     end
   end
 
-  # Test suite for POST /notices
-  describe 'POST /notices' do
+
+ describe 'POST /notices' do
     # valid payload
-    let(:valid_attributes) { { notice_for: 'Nawab Abdul Latif Hall', details: 'Hall Admission', important_dates: 'Starting date: 12.12.12', attachments_needed: 'Photos, Registration Cards' } }
+    let(:valid_attributes) { { notice_for: 'Habibur Rahman Hall', details: 'Hall Admission', important_dates: 'Starts 8.8.10 Ends 11.11.11', attachments_needed: 'photo, id card' } }
 
     context 'when the request is valid' do
       before { post '/notices', params: valid_attributes }
 
       it 'creates a notice' do
-        expect(json['notice_for']).to eq('Nawab Abdul Latif Hall')
+        expect(json['notice_for']).to eq('Habibur Rahman Hall')
         expect(json['details']).to eq('Hall Admission')
-        expect(json['important_dates']).to eq('Starting date: 12.12.12')
-        expect(json['notice_for']).to eq('Photos, Registration Cards')
+        expect(json['important_dates']).to eq('Starts 8.8.10 Ends 11.11.11')
+        expect(json['attachments_needed']).to eq('photo, id card')
       end
 
       it 'returns status code 201' do
         expect(response).to have_http_status(201)
       end
     end
+####################################################################################
+
 
     context 'when the request is invalid' do
-      before { post '/notices', params: { notice_for: 'Shere bangla' } }
+      before { post '/notices', params: { notice_for: 'Foobar' } }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -80,14 +82,17 @@ RSpec.describe 'Notices API', type: :request do
 
       it 'returns a validation failure message' do
         expect(response.body)
-          .to match(/Validation failed: Details can't be blank/)
+          .to match(/Validation failed: Details can't be blank, Important dates can't be blank, Attachments needed can't be blank/)
       end
     end
   end
 
+
+
+
   # Test suite for PUT /notices/:id
   describe 'PUT /notices/:id' do
-    let(:valid_attributes) { { notice_for: 'Habibur Rahman' } }
+    let(:valid_attributes) { { notice_for: 'Teachers Quarter' } }
 
     context 'when the record exists' do
       before { put "/notices/#{notice_id}", params: valid_attributes }
